@@ -1,0 +1,19 @@
+version: '3.9'
+
+services:
+  mysql:
+    image: mysql:8
+    container_name: task_database
+    ports:
+      - 3306:3306
+    volumes:
+      - task-database:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=S3cret
+      - MYSQL_PASSWORD=An0thrS3crt
+      - MYSQL_USER=task_user
+      - MYSQL_DATABASE=taskservice
+# Names our volume
+volumes:
+  task-database:
+    driver: local
