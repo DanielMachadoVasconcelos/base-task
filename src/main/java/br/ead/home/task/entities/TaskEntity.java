@@ -10,17 +10,16 @@ import java.util.UUID;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity(name = "Task")
+@Entity(name = "task")
 @Table(name = "task", schema = "taskservice", indexes = {
     @Index(name = "idx_task_status", columnList = "status"),
     @Index(name = "idx_task_code", columnList = "code")
 })
-public class Task {
+public class TaskEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id", nullable = false)
-    private UUID id;
+    @Column(name = "task_id", nullable = false)
+    private String id;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
@@ -36,4 +35,8 @@ public class Task {
     private String description;
 
     private ZonedDateTime createdAt;
+
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "task", orphanRemoval = true)
+    private RestrictionEntity restriction;
+
 }
